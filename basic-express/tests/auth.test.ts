@@ -7,11 +7,11 @@ let refreshToken: string;
 
 beforeAll(() => dotenv.config());
 
-describe.skip('POST /api/auth/login', () => {
+describe('POST /api/auth/login', () => {
     it('should return token as cookie on succesful login', async () => {
         const response = await request(app).post('/api/auth/login').send({
             username: 'admin',
-            password: 'admin',
+            password: 'admin123',
         });
 
         expect(response.status).toBe(204);
