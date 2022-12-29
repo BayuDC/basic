@@ -41,7 +41,7 @@ describe('POST /api/auth/login', () => {
         expect(response.body.message).toBe('Password incorrect');
     });
 });
-describe.skip('POST /api/auth/logout', () => {
+describe('POST /api/auth/logout', () => {
     it('should clear the cookie', async () => {
         const response = await request(app).post('/api/auth/logout').set('Cookie', [accessToken, refreshToken]).send();
 
