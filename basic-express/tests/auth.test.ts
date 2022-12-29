@@ -55,26 +55,32 @@ describe.skip('POST /api/auth/logout', () => {
         expect(response.status).toBe(401);
     });
 });
-describe.skip('GET /api/auth', () => {
+describe('GET /api/auth', () => {
     it('should return user data', async () => {
-        const response = await request(app).post('/api/auth').set('Cookie', [accessToken, refreshToken]).send();
+        const response = await request(app).get('/api/auth').set('Cookie', [accessToken, refreshToken]).send();
 
         expect(response.status).toBe(200);
         expect(response.body.user).toBeDefined();
-        expect(response.body.user).toHaveProperty(['id', 'username', 'role']);
+        expect(response.body.user).toHaveProperty('id');
+        expect(response.body.user).toHaveProperty('username');
+        expect(response.body.user).toHaveProperty('role');
         expect(response.body.user).not.toHaveProperty(['password']);
     });
     it('should return user data and refresh the token', async () => {
-        const response = await request(app).post('/api/auth').set('Cookie', [refreshToken]).send();
+        const response = await request(app).get('/api/auth').set('Cookie', [refreshToken]).send();
 
         expect(response.status).toBe(200);
         expect(response.body.user).toBeDefined();
+        expect(response.body.user).toHaveProperty('id');
+        expect(response.body.user).toHaveProperty('username');
+        expect(response.body.user).toHaveProperty('role');
+        expect(response.body.user).not.toHaveProperty(['password']);
         expect(response.header['set-cookie']).toBeDefined();
         expect(response.header['set-cookie'][0]).toContain('access_token');
         expect(response.header['set-cookie'][1]).toContain('refresh_token');
     });
     it('should return nothing if no token is present', async () => {
-        const response = await request(app).post('/api/auth').send();
+        const response = await request(app).get('/api/auth').send();
         expect(response.status).toBe(401);
     });
 });

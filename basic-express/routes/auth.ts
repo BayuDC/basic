@@ -1,8 +1,9 @@
-import { RequestHandler, Router } from 'express';
-import { login } from '../handlers/auth';
+import { Router } from 'express';
+import handler from '../handlers/auth';
 
 const router = Router();
 
-router.post('/api/auth/login', login as RequestHandler);
+router.get('/api/auth', handler.guard, (req, res) => res.send({ user: req.user }));
+router.post('/api/auth/login', handler.login);
 
 export default router;

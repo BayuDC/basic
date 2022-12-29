@@ -1,13 +1,19 @@
 import express from 'express';
+import cookie from 'cookie-parser';
 import morgan from 'morgan';
 import routes from '../routes';
 import error from '../handlers/error';
+import auth from '../handlers/auth';
 import './app.d';
 
 const app = express();
 
+app.set('secret', process.env.JWT_SECRET);
+
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cookie());
+app.use(auth.load);
 app.use(error.init);
 
 app.use(routes.main);
