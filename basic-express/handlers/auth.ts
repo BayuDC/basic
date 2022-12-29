@@ -84,10 +84,20 @@ const login: RequestHandler = async (req, res, next) => {
     }
 };
 
-const logout: RequestHandler = async (req, res) => {
-    res.clearCookie('access_token');
-    res.clearCookie('refresh_token');
-    res.status(204).send();
+const logout: RequestHandler = async (req, res, next) => {
+    try {
+        const user = req.user;
+        await db.user.update({
+            where: { id: user?.id },
+            data: { token: null },
+        });
+
+        res.clearCookie('access_token');
+        res.clearCookie('refresh_token');
+        res.status(204).send();
+    } catch (err) {
+        next(err);
+    }
 };
 
 export default { load, guard, login, logout };
