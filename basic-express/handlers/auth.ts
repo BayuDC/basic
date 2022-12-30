@@ -42,7 +42,7 @@ const load: RequestHandler = async (req, res, next) => {
             const user = await db.user.findFirst({ where: { token: payload.token } });
             if (!user) throw undefined;
 
-            const [accessTokenNew, refreshTokenNew, payloadNew] = await generateToken(user, secret);
+            const [accessTokenNew, refreshTokenNew] = await generateToken(user, secret);
 
             res.cookie('access_token', accessTokenNew, { httpOnly: true, maxAge: 1000 * 60 * 60 * 1 });
             res.cookie('refresh_token', refreshTokenNew, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
