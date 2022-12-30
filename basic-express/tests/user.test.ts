@@ -59,7 +59,7 @@ describe('POST /api/users', () => {
         const res = await agentUser.post('/api/users').send();
         expect(res.status).toBe(403);
     });
-    describe.skip('Body Validation', () => {
+    describe('Body Validation', () => {
         it('should validate required fields', async () => {
             const body = {};
             const res = await agentAdmin.post('/api/users').send(body);
@@ -108,7 +108,7 @@ describe('PUT /api/users/:id', () => {
         expect(res.body.message).toBeDefined();
         expect(res.body.message).toBe('User not found');
     });
-    describe.skip('Body Validation', () => {
+    describe('Body Validation', () => {
         it('should validate duplicate username', async () => {
             const body = { username: 'user' };
             const res = await agentAdmin.put('/api/users/' + id).send(body);
