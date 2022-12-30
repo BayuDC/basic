@@ -57,10 +57,6 @@ const load: RequestHandler = async (req, res, next) => {
         next();
     }
 };
-const guard: RequestHandler = (req, res, next) => {
-    if (req.user) return next();
-    next(res.error(401));
-};
 
 const login: RequestHandler = async (req, res, next) => {
     try {
@@ -100,4 +96,4 @@ const logout: RequestHandler = async (req, res, next) => {
     }
 };
 
-export default { load, guard, login, logout };
+export default { load, login, logout };

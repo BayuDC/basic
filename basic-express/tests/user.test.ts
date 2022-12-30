@@ -42,7 +42,7 @@ describe('GET /api/users/:id', () => {
         expect(res.body.message).toBe('User not found');
     });
 });
-describe.skip('POST /api/users', () => {
+describe('POST /api/users', () => {
     it('should create a new user and return it', async () => {
         const body = { username: 'sampleuser', password: 'samplepassword' };
         const res = await agentAdmin.post('/api/users').send(body);
@@ -116,6 +116,12 @@ describe.skip('PUT /api/users/:id', () => {
             expect(res.status).toBe(400);
             expect(res.body.details).toBeDefined();
             expect(res.body.details).toHaveProperty('username', 'A user with this username already exists');
+        });
+        it('should bypass validate themself username', async () => {
+            const body = { username: 'sampleuser' };
+            const res = await agentAdmin.put('/api/users/' + id).send(body);
+
+            expect(res.status).toBe(200);
         });
         it('should validate password length', async () => {
             const body = { password: 'short' };

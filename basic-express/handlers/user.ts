@@ -27,7 +27,24 @@ export default {
             next(err);
         }
     },
+    async store(req, res, next) {
+        try {
+            const body = req.body;
+            const user = await db.user.create({
+                data: {
+                    username: body.username,
+                    password: body.password,
+                    role: 'user',
+                },
+            });
+
+            res.status(201).json({ user });
+        } catch (err) {
+            next(err);
+        }
+    },
 } as {
     index: RequestHandler;
     show: RequestHandler;
+    store: RequestHandler;
 };
