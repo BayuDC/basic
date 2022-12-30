@@ -11,6 +11,13 @@ async function main() {
             role: 'admin',
         },
     });
+    await prisma.user.create({
+        data: {
+            username: 'user',
+            password: await bcrypt.hash('user1234', await bcrypt.genSalt()),
+            role: 'user',
+        },
+    });
 
     for (let i = 0; i < 10; i++) {
         await prisma.user.create({
