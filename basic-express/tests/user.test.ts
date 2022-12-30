@@ -87,7 +87,7 @@ describe('POST /api/users', () => {
         });
     });
 });
-describe.skip('PUT /api/users/:id', () => {
+describe('PUT /api/users/:id', () => {
     it('should update a user and return it', async () => {
         const body = { username: 'sampleuser2', password: 'samplepassword2' };
         const res = await agentAdmin.put('/api/users/' + id).send(body);
@@ -118,7 +118,7 @@ describe.skip('PUT /api/users/:id', () => {
             expect(res.body.details).toHaveProperty('username', 'A user with this username already exists');
         });
         it('should bypass validate themself username', async () => {
-            const body = { username: 'sampleuser' };
+            const body = { username: 'sampleuser2' };
             const res = await agentAdmin.put('/api/users/' + id).send(body);
 
             expect(res.status).toBe(200);
