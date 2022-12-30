@@ -12,5 +12,6 @@
         "moduleResolution": "node",
         "outDir": "./build"
     },
-    "exclude": ["./node_modules/*", "./tests/*", "./prisma/*"],
+    "exclude": ["./node_modules/*", "./tests/*", "./prisma/*"]
+    // "include": ["**.ts", "**.d.ts"]
 }

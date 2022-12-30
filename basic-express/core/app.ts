@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import routes from '../routes';
 import error from '../handlers/error';
 import auth from '../handlers/auth';
-import './app.d';
+import './app.shit';
 
 const app = express();
 
