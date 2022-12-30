@@ -18,6 +18,7 @@ app.use(error.init);
 
 app.use(routes.main);
 app.use(routes.auth);
+app.use(routes.user);
 app.use(error.handle);
 
 export default app;

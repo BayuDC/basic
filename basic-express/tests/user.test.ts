@@ -42,7 +42,7 @@ describe('GET /api/users/:id', () => {
         expect(res.body.message).toBe('User not found');
     });
 });
-describe('POST /api/users', () => {
+describe.skip('POST /api/users', () => {
     it('should create a new user and return it', async () => {
         const body = { username: 'sampleuser', password: 'samplepassword' };
         const res = await agentAdmin.post('/api/users').send(body);
@@ -59,7 +59,7 @@ describe('POST /api/users', () => {
         const res = await agentUser.post('/api/users').send();
         expect(res.status).toBe(403);
     });
-    describe('Body Validation', () => {
+    describe.skip('Body Validation', () => {
         it('should validate required fields', async () => {
             const body = {};
             const res = await agentAdmin.post('/api/users').send(body);
@@ -87,7 +87,7 @@ describe('POST /api/users', () => {
         });
     });
 });
-describe('PUT /api/users/:id', () => {
+describe.skip('PUT /api/users/:id', () => {
     it('should update a user and return it', async () => {
         const body = { username: 'sampleuser2', password: 'samplepassword2' };
         const res = await agentAdmin.put('/api/users/' + id).send(body);
@@ -108,7 +108,7 @@ describe('PUT /api/users/:id', () => {
         expect(res.body.message).toBeDefined();
         expect(res.body.message).toBe('User not found');
     });
-    describe('Body Validation', () => {
+    describe.skip('Body Validation', () => {
         it('should validate duplicate username', async () => {
             const body = { username: 'user' };
             const res = await agentAdmin.put('/api/users/' + id).send(body);
@@ -127,7 +127,7 @@ describe('PUT /api/users/:id', () => {
         });
     });
 });
-describe('DELETE /api/users/:id', () => {
+describe.skip('DELETE /api/users/:id', () => {
     it('should delete a user', async () => {
         const res = await agentAdmin.delete('/api/users/' + id).send();
         expect(res.status).toBe(204);
