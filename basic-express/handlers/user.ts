@@ -73,10 +73,20 @@ export default {
             next(err);
         }
     },
+    async delete(req, res, next) {
+        try {
+            const user = res.data as User;
+            await db.user.delete({ where: { id: user.id } });
+            res.status(204).send();
+        } catch (err) {
+            next(err);
+        }
+    },
 } as {
     load: RequestParamHandler;
     index: RequestHandler;
     show: RequestHandler;
     store: RequestHandler;
     update: RequestHandler;
+    delete: RequestHandler;
 };

@@ -133,7 +133,7 @@ describe('PUT /api/users/:id', () => {
         });
     });
 });
-describe.skip('DELETE /api/users/:id', () => {
+describe('DELETE /api/users/:id', () => {
     it('should delete a user', async () => {
         const res = await agentAdmin.delete('/api/users/' + id).send();
         expect(res.status).toBe(204);

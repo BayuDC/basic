@@ -12,5 +12,6 @@ router.get('/api/users/:id', handler.show);
 router.use(auth.gate('admin'));
 router.post('/api/users', handler.store);
 router.put('/api/users/:id', handler.update);
+router.delete('/api/users/:id', handler.delete);
 
 export default router;
