@@ -149,3 +149,48 @@ describe('DELETE /api/users/:id', () => {
         expect(res.body.message).toBe('User not found');
     });
 });
+
+describe.skip('PATCH /api/users/:id/picture', () => {
+    it('should update user picture', async () => {
+        const res = await agentAdmin.patch('/api/users/' + id + '/picture').attach('picture', './data/pp.png');
+        expect(res.status).toBe(204);
+    });
+    it('should do nothing if picture file is not given', async () => {
+        const res = await agentAdmin.patch('/api/users/' + id + '/picture').send();
+        expect(res.status).toBe(400);
+        expect(res.body.details).toBeDefined();
+        expect(res.body.details).toHaveProperty('picture', 'The picture field is required');
+    });
+    it('should only accept image files', async () => {
+        const res = await agentAdmin.patch('/api/users/' + id + '/picture').attach('picture', './data/pp.txt');
+        expect(res.status).toBe(400);
+        expect(res.body.details).toBeDefined();
+        expect(res.body.details).toHaveProperty('picture', 'The picture must be an image file');
+    });
+    it('should do nothing if auth user is not admin', async () => {
+        const res = await agentUser.patch('/api/users/' + id + '/picture').attach('picture', './data/pp.png');
+        expect(res.status).toBe(403);
+    });
+    it('should do nothing if the user is not found', async () => {
+        const res = await agentAdmin.patch('/api/users/0/picture').attach('picture', './data/pp.png');
+        expect(res.status).toBe(404);
+        expect(res.body.message).toBeDefined();
+        expect(res.body.message).toBe('User not found');
+    });
+});
+describe.skip('DELETE /api/users/:id/picture', () => {
+    it('should delete user picture', async () => {
+        const res = await agentAdmin.delete('/api/users/' + id + '/picture').send();
+        expect(res.status).toBe(204);
+    });
+    it('should do nothing if auth user is not admin', async () => {
+        const res = await agentUser.delete('/api/users/' + id + '/picture').send();
+        expect(res.status).toBe(403);
+    });
+    it('should do nothing if the user is not found', async () => {
+        const res = await agentAdmin.delete('/api/users/0/picture').send();
+        expect(res.status).toBe(404);
+        expect(res.body.message).toBeDefined();
+        expect(res.body.message).toBe('User not found');
+    });
+});
